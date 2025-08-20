@@ -1,8 +1,6 @@
 package app.e_commerce.entity.enums;
 
-import java.util.EnumMap;
-
-public enum StatusPayment {
+public enum PaymentStatus {
     APPROVED,
     REFUSED,
     PENDING

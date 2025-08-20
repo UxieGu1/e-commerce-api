@@ -1,12 +1,13 @@
 package app.e_commerce.entity;
 
 import app.e_commerce.entity.enums.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_order")
@@ -16,9 +17,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
-    //itens comprados,
+
+    @Enumerated(EnumType.STRING)
     private Status status;
-    //valor total
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<ItemCart> items;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
 }
